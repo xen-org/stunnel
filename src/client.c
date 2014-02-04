@@ -529,16 +529,16 @@ static void transfer(CLI *c) {
             s_poll_add(&c->fds, c->ssl_wfd->fd, 0, 1);
 
         /****************************** wait for an event */
-        err=s_poll_wait(&c->fds, (sock_rd && ssl_rd) /* both peers open */ ||
-            c->ssl_ptr /* data buffered to write to socket */ ||
-            c->sock_ptr /* data buffered to write to SSL */ ?
+        err=s_poll_wait(&c->fds,
+            (sock_wr && (ssl_rd || c->ssl_ptr)) ||
+            (ssl_wr && (sock_rd || c->sock_ptr)) ?
             c->opt->timeout_idle : c->opt->timeout_close);
         switch(err) {
         case -1:
             sockerror("transfer: s_poll_wait");
             longjmp(c->err, 1);
         case 0: /* timeout */
-            if((sock_rd && ssl_rd) || c->ssl_ptr || c->sock_ptr) {
+            if ((sock_wr && (ssl_rd || c->ssl_ptr)) || (ssl_wr && (sock_rd || c->sock_ptr))) {
                 s_log(LOG_INFO, "s_poll_wait timeout: connection reset");
                 longjmp(c->err, 1);
             } else { /* already closing connection */
