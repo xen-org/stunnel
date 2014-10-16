@@ -428,7 +428,10 @@ For example DES-CBC3-SHA:IDEA-CBC-MD5</p>
 <dt><strong><a name="item_client__3d_yes__7c_no"><strong>client</strong> = yes | no</a></strong><br />
 </dt>
 <dd>
-client mode (remote service uses SSL)
+client mode (remote service uses TLS)
+</dd>
+<dd>
+(Client mode forces TLSv1 not SSLv2 or SSLv3; this is hardcoded.)
 </dd>
 <dd>
 <p>default: no (server mode)</p>

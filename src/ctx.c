@@ -80,7 +80,7 @@ SSL_CTX *context_init(LOCAL_OPTIONS *section) { /* init SSL context */
     }
     /* create SSL context */
     if(section->option.client) {
-        ctx=SSL_CTX_new(SSLv3_client_method());
+        ctx=SSL_CTX_new(TLSv1_client_method());
     } else { /* Server mode */
         ctx=SSL_CTX_new(SSLv23_server_method());
 #ifndef NO_RSA
