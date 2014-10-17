@@ -370,7 +370,9 @@ A colon delimited list of the ciphers to allow in the \s-1SSL\s0 connection.
 For example \s-1DES\-CBC3\-SHA:IDEA\-CBC\-MD5\s0
 .IP "\fBclient\fR = yes | no" 4
 .IX Item "client = yes | no"
-client mode (remote service uses \s-1SSL\s0)
+client mode (remote service uses \s-1TLS\s0)
+.Sp
+(Client mode forces TLSv1 not SSLv2 or SSLv3; this is hardcoded.)
 .Sp
 default: no (server mode)
 .IP "\fBconnect\fR = [host:]port" 4
